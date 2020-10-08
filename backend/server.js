@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const expressValidator = require('express-validator');
 require('dotenv').config();
-const path = require('path');
+import path from 'path';
 // import routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
@@ -43,14 +43,14 @@ app.use('/api', orderRoutes);
 
 const port = process.env.PORT || 8000;
 
-const dir = path.resolve()
+const __dirname = path.resolve()
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(dir, '/frontend/build')))
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
 
   app.get('*', (req, res) =>
-    res.sendFile(path.resolve(dir, 'frontend', 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
   )
 } else {
   app.get('/', (req, res) => {
