@@ -9,12 +9,12 @@ require('dotenv').config();
 // import path from 'path';
 const path = require('path')
 // import routes
-const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/user');
-const categoryRoutes = require('./routes/category');
-const productRoutes = require('./routes/product');
-const braintreeRoutes = require('./routes/braintree');
-const orderRoutes = require('./routes/order');
+const authRoutes = require('./backend/routes/auth');
+const userRoutes = require('./backend/routes/user');
+const categoryRoutes = require('./backend/routes/category');
+const productRoutes = require('./backend/routes/product');
+const braintreeRoutes = require('./backend/routes/braintree');
+const orderRoutes = require('./backend/routes/order');
 const { Server } = require('http');
 
 // app
@@ -49,10 +49,10 @@ const port = process.env.PORT || 8000;
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(path.dirname(__dirname), '/frontend/build')))
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
 
   app.get('*', (req, res) =>
-    res.sendFile(path.resolve(path.dirname(__dirname), 'frontend', 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
   )
 } else {
   app.get('/', (req, res) => {
@@ -62,5 +62,5 @@ if (process.env.NODE_ENV === 'production') {
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-    // console.log(path.dirname(__dirname))
+    console.log(__dirname)
 });
