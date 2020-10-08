@@ -51,7 +51,7 @@ const dir = path.resolve()
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(dir, '/frontend/build')))
 
-  app.get('/*', (req, res) =>
+  app.get('*', (req, res) =>
     res.sendFile(path.resolve(dir, 'frontend', 'build', 'index.html'))
   )
 } else {
