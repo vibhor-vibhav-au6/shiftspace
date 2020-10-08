@@ -6,7 +6,8 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const expressValidator = require('express-validator');
 require('dotenv').config();
-import path from 'path';
+// import path from 'path';
+const path = require('path')
 // import routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
@@ -14,6 +15,7 @@ const categoryRoutes = require('./routes/category');
 const productRoutes = require('./routes/product');
 const braintreeRoutes = require('./routes/braintree');
 const orderRoutes = require('./routes/order');
+const { Server } = require('http');
 
 // app
 const app = express();
@@ -43,14 +45,14 @@ app.use('/api', orderRoutes);
 
 const port = process.env.PORT || 8000;
 
-const __dirname = path.resolve()
+// const __dirname = path.resolve()
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/frontend/build')))
+  app.use(express.static(path.join(path.dirname(__dirname), '/frontend/build')))
 
   app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+    res.sendFile(path.resolve(path.dirname(__dirname), 'frontend', 'build', 'index.html'))
   )
 } else {
   app.get('/', (req, res) => {
@@ -60,5 +62,5 @@ if (process.env.NODE_ENV === 'production') {
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-    // console.log(__dirname)
+    // console.log(path.dirname(__dirname))
 });
