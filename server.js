@@ -16,6 +16,7 @@ const productRoutes = require('./backend/routes/product');
 const braintreeRoutes = require('./backend/routes/braintree');
 const orderRoutes = require('./backend/routes/order');
 const { Server } = require('http');
+const { dirname } = require('path');
 
 // app
 const app = express();
@@ -49,10 +50,10 @@ const port = process.env.PORT || 8000;
 // app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(path.dirname(require.main.filename), '/frontend/build')))
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
 
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(path.dirname(require.main.filename), 'frontend', 'build', 'index.html'))
+  app.get('/*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
   )
 } else {
   app.get('/', (req, res) => {
