@@ -2,6 +2,7 @@
   "name": "shiftspace-fe",
   "version": "1.0.0",
   "private": true,
+  "proxy":"https://shiftspace-vibhor.herokuapp.com/api"
   "dependencies": {
     "braintree-web": "^3.45.0",
     "braintree-web-drop-in-react": "^1.0.7",
